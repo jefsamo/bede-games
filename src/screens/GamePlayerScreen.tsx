@@ -1,13 +1,15 @@
 import React, { useRef, useState } from "react";
 import {
   ActivityIndicator,
-  SafeAreaView,
   StyleSheet,
   View,
+  TouchableWithoutFeedback,
+  Keyboard,
 } from "react-native";
 import { WebView } from "react-native-webview";
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 import type { RootStackParamList } from "../navigation/types";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 type Props = NativeStackScreenProps<RootStackParamList, "GamePlayer">;
 
@@ -17,26 +19,28 @@ export function GamePlayerScreen({ route }: Props) {
   const [loading, setLoading] = useState(true);
 
   return (
-    <SafeAreaView style={styles.safe}>
-      <View style={styles.container}>
-        <WebView
-          ref={webViewRef}
-          source={{ uri: url }}
-          onLoadStart={() => setLoading(true)}
-          onLoadEnd={() => setLoading(false)}
-          javaScriptEnabled
-          domStorageEnabled
-          allowsFullscreenVideo
-          startInLoadingState
-        />
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+      <SafeAreaView style={styles.safe}>
+        <View style={styles.container}>
+          <WebView
+            ref={webViewRef}
+            source={{ uri: url }}
+            onLoadStart={() => setLoading(true)}
+            onLoadEnd={() => setLoading(false)}
+            javaScriptEnabled
+            domStorageEnabled
+            allowsFullscreenVideo
+            startInLoadingState
+          />
 
-        {loading && (
-          <View style={styles.loadingOverlay} pointerEvents="none">
-            <ActivityIndicator size="large" />
-          </View>
-        )}
-      </View>
-    </SafeAreaView>
+          {loading && (
+            <View style={styles.loadingOverlay} pointerEvents="none">
+              <ActivityIndicator size="large" />
+            </View>
+          )}
+        </View>
+      </SafeAreaView>
+    </TouchableWithoutFeedback>
   );
 }
 
