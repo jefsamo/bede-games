@@ -32,7 +32,6 @@ This was built using the **Expo default TypeScript template**, with a focus on c
 - ✅ Simple search/filtering
 - ✅ Launches a **WebView** to play a selected free online game
 - ✅ Type-safe navigation params (TypeScript)
-- ✅ Basic accessibility support (screen reader labels / roles)
 - ✅ Loading overlay while the game page loads
 
 ---
